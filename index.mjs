@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import xml2js from 'xml2js';
 import JSZip from 'jszip';
+import zlib from 'zlib';
 
 // レポート（.zip or .xml）を格納するディレクトリ
 const reportsDir = './report';
@@ -92,12 +93,19 @@ const extractDataAndGenerateHTML = (result) => {
 const processFile = async (filePath) => {
     let fileData;
     if (path.extname(filePath) === '.zip') {
+        // .zip ファイルの処理
         const zipData = await fs.readFile(filePath);
         const zip = await JSZip.loadAsync(zipData);
         const xmlFileName = Object.keys(zip.files)[0];
         fileData = await zip.files[xmlFileName].async('string');
     } else if (path.extname(filePath) === '.xml') {
+        // .xml ファイルの処理
         fileData = await fs.readFile(filePath, 'utf8');
+    } else if (path.extname(filePath) === '.gz') {
+        // .gz ファイルの処理
+        const gzData = await fs.readFile(filePath);
+        const xmlData = await zlib.gunzipSync(gzData);
+        fileData = xmlData.toString();
     } else {
         return;
     }
