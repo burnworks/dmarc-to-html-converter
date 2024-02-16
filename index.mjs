@@ -115,7 +115,17 @@ const processFile = async (filePath) => {
 };
 
 const unzipAndConvertToHtml = async () => {
-    const files = await fs.readdir(reportsDir);
+    let files = await fs.readdir(reportsDir);
+    // ファイルのメタデータを取得してソート
+    let fileStats = await Promise.all(files.map(async file => {
+        const filePath = path.join(reportsDir, file);
+        const stats = await fs.stat(filePath);
+        return { file, stats };
+    }));
+
+    // ファイルの作成日時が新しい順にソート
+    fileStats.sort((a, b) => b.stats.mtime - a.stats.mtime);
+
     let htmlContent = `<!DOCTYPE html>
     <html lang="ja">
         <head>
@@ -212,10 +222,12 @@ const unzipAndConvertToHtml = async () => {
             </header>
             <main>`;
 
-    for (const file of files) {
+    for (const { file } of fileStats) {
         const filePath = path.join(reportsDir, file);
         const sectionHtml = await processFile(filePath);
-        htmlContent += sectionHtml;
+        if (sectionHtml) {
+            htmlContent += sectionHtml;
+        }
     }
 
     htmlContent += `</main>
