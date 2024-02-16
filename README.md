@@ -1,6 +1,6 @@
 # dmarc-to-html-converter 
 
-Convert DMARC report files from xml to human-readable HTML formats.
+Convert DMARC report files from XML to human-readable HTML formats.
 
 DMARC レポート（XML）を人間が読みやすい HTML 形式に変換するスクリプトです。指定のディレクトリに DMARC レポート（.zip / .gz / .xml）を置いた状態でスクリプトを実行すると、それらすべてから内容を抽出し、まとめた HTML ファイルを生成します。
 
