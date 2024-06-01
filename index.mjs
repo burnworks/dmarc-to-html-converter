@@ -39,9 +39,9 @@ const extractDataAndGenerateHTML = (result) => {
                 <th>Disposition</th>
                 <th>DKIM</th>
                 <th>SPF</th>
-                <th>DKIM Domein</th>
+                <th>DKIM Domain</th>
                 <th>DKIM Results</th>
-                <th>SPF Domein</th>
+                <th>SPF Domain</th>
                 <th>SPF Results</th>
             </tr>
         </thead>`;
