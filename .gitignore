@@ -131,3 +131,6 @@ report.html
 
 # Report Files
 report/
+
+# backup files
+.backup/
