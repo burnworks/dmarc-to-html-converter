@@ -1,7 +1,7 @@
 {
   "name": "dmarc-to-html-converter",
   "type": "module",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Convert DMARC report files from xml to human-readable HTML formats.",
   "license": "MIT",
   "author": "burnworks",
